@@ -30,7 +30,7 @@ class RegisterController extends Controller
             'no_telepon' => ['required', 'string', 'max:15'],
             'alamat' => ['required', 'string', 'max:255'],
             'ktp' => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'npwp' => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'npwp' => ['nullahle', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
             'sim' => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
         ]);
     }
@@ -38,7 +38,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $ktpPath = request()->file('ktp')->store('documents/ktp', 'public');
-        $npwpPath = request()->file('npwp')->store('documents/npwp', 'public');
+        $npwpPath = request()->file('npwp') ? request()->file('npwp')->store('documents/npwp', 'public') : null;
         $simPath = request()->file('sim')->store('documents/sim', 'public');
 
         $user = User::create([

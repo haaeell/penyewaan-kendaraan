@@ -3,13 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kendaraan;
+use App\Models\Promo;
 use Illuminate\Http\Request;
 
 class LandingPageController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+        $promo = Promo::where('status', true)
+        ->whereDate('tanggal_mulai', '<=', now())
+        ->whereDate('tanggal_selesai', '>=', now())
+        ->get();
+
+        $kendaraan = Kendaraan::take(8)->get();
+        return view('welcome', compact('promo','kendaraan'));
     }
 
     public function daftarKendaraan(Request $request)

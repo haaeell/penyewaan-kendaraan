@@ -18,7 +18,7 @@
 
     <!-- App CSS -->
     <link id="theme-style" rel="stylesheet" href="{{ asset('assets') }}/css/portal.css">
-    
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 
 </head>
@@ -148,7 +148,7 @@
 
                                 </div><!--//dropdown-menu-->
                             </div><!--//app-utility-item-->
-                           
+
                             <div class="app-utility-item app-user-dropdown dropdown">
                                 <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown"
                                     href="#" role="button" aria-expanded="false"><img
@@ -177,9 +177,17 @@
             <div class="sidepanel-inner d-flex flex-column">
                 <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
                 <div class="app-branding">
-                    <a class="app-logo" href="index.html"><img class="logo-icon me-2"
-                            src="{{ asset('assets') }}/images/app-logo.svg" alt="logo"><span
-                            class="logo-text">SEWA 24</span></a>
+                    @php
+                        $settingInformasi = App\Models\SettingInformasi::first();
+                    @endphp
+                    <a class="app-logo" href="index.html">
+                        {{-- @if($settings->logo)
+                            <img src="{{ asset('storage/' . $settings->logo) }}" alt="Logo" class="img-fluid " style="max-width: 40px;">
+                        @else
+                            <img class="logo-icon me-2"src="{{ asset('assets') }}/images/app-logo.svg" alt="logo">
+    
+                        @endif --}}
+                            <span class="logo-text">{{ $settingInformasi->nama_perusahaan }}</span></a>
 
                 </div><!--//app-branding-->
 
@@ -264,15 +272,14 @@
                                 <span class="nav-link-text">Jenis Pembayaran</span>
                             </a><!--//nav-link-->
                         </li><!--//nav-item-->
-                       
+
                         <li class="nav-item">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                             <a class="nav-link"
-                                href="https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/portal-free-bootstrap-admin-dashboard-template-for-developers/">
+                                href="{{ route('promos.index') }}">
                                 <span class="nav-icon">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                        class="bi bi-download" fill="currentColor"
-                                        xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
                                             d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
                                         <path fill-rule="evenodd"
@@ -284,12 +291,10 @@
                         </li><!--//nav-item-->
                         <li class="nav-item">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link"
-                                href="{{ route('laporan.index') }}">
+                            <a class="nav-link" href="{{ route('laporan.index') }}">
                                 <span class="nav-icon">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                        class="bi bi-file-person" fill="currentColor"
-                                        xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-person"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
                                             d="M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
                                         <path fill-rule="evenodd" d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
@@ -300,7 +305,7 @@
                         </li><!--//nav-item-->
                         <li class="nav-item">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link" href="settings.html">
+                            <a class="nav-link" href="{{ route('settings.index') }}">
                                 <span class="nav-icon">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -315,7 +320,7 @@
                         </li><!--//nav-item-->
                     </ul><!--//app-menu-->
                 </nav><!--//app-nav-->
-               
+
             </div><!--//sidepanel-inner-->
         </div><!--//app-sidepanel-->
     </header><!--//app-header-->
@@ -335,7 +340,7 @@
 
 
     <!-- Javascript -->
-    
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="{{ asset('assets') }}/plugins/popper.min.js"></script>
     <script src="{{ asset('assets') }}/plugins/bootstrap/js/bootstrap.min.js"></script>

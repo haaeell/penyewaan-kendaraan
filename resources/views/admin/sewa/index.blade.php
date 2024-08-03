@@ -17,6 +17,7 @@
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Selesai</th>
                                 <th>Status</th>
+                                <th>Total Harga</th>
                                 <th>Jenis Pembayaran</th>
                                 <th>Metode Pickup</th>
                                 <th>Lokasi Pickup</th>
@@ -44,6 +45,15 @@
                                             <span class="badge bg-primary">{{ ucfirst($sewa->status) }}</span>
                                         @elseif($sewa->status == 'dibatalkan')
                                             <span class="badge bg-danger">{{ ucfirst($sewa->status) }}</span>
+                                        @elseif($sewa->status == 'perpanjangan sewa')
+                                            <span class="badge bg-danger">{{ ucfirst($sewa->status) }}</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($sewa->harga_setelah_diskon)
+                                            Rp {{ number_format($sewa->harga_setelah_diskon, 0, ',', '.') }}
+                                        @else
+                                            Rp {{ number_format($sewa->total_harga, 0, ',', '.') }}
                                         @endif
                                     </td>
                                     <td>{{ $sewa->jenisPembayaran->nama }} - No Rek: {{ $sewa->jenisPembayaran->no_rek }}</td>
@@ -59,7 +69,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if($sewa->status == 'menunggu_konfirmasi')
+                                        @if($sewa->status == 'menunggu_konfirmasi' || $sewa->status == 'perpanjangan sewa')
                                         <div class="d-flex">
                                             <form action="{{ route('sewa.updateStatus', $sewa->id) }}" method="POST" style="display:inline-block;">
                                                 @csrf

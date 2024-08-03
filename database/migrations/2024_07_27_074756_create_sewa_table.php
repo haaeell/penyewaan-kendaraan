@@ -18,11 +18,14 @@ return new class extends Migration
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->decimal('total_harga', 10, 2);
-            $table->enum('status', ['belum_dibayar', 'menunggu_konfirmasi', 'sedang_diproses', 'diterima', 'selesai', 'dibatalkan']);
+            $table->decimal('diskon', 10, 2)->nullable(); 
+            $table->decimal('harga_setelah_diskon', 10, 2)->nullable();
+            $table->enum('status', ['belum_dibayar', 'menunggu_konfirmasi', 'sedang_diproses', 'diterima', 'selesai', 'dibatalkan','perpanjangan sewa']);
             $table->foreignId('jenis_pembayaran_id')->constrained('jenis_pembayaran')->onDelete('cascade');
             $table->string('kode_sewa')->unique();
             $table->enum('metode_pickup', ['diantar', 'ambil_sendiri']);
             $table->text('lokasi_pickup')->nullable();
+            $table->string('kode_promo')->nullable(); // Kolom untuk menyimpan kode promo yang digunakan
             $table->timestamps();
         });
     }

@@ -22,6 +22,12 @@ class Sewa extends Model
         'metode_pickup',
         'lokasi_pickup',
         'bukti_pembayaran',
+        'diskon',
+        'harga_setelah_diskon'  ,
+        'kode_promo',
+        'tanggal_selesai_baru',
+        'harga_tambahan',
+        'bukti_pembayaran_tambahan'
     ];
 
     public function kendaraan()

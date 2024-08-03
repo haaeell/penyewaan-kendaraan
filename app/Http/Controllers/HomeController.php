@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kendaraan;
+use App\Models\Sewa;
+use App\Models\Wisatawan;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $totalWisatawan = Wisatawan::count();
+        $totalKendaraan =  Kendaraan::count();
+        $totalBooking = Sewa::count();
+
+        return view('home', compact('totalWisatawan', 'totalKendaraan', 'totalBooking'));
     }
 }

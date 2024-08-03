@@ -12,15 +12,11 @@ class Kendaraan extends Model
     protected $table = 'kendaraan';
 
     protected $fillable = [
-        'nama',
-        'foto',
-        'jenis',
-        'type',
-        'plat_nomor',
-        'keterangan',
-        'tahun',
-        'seating_capacity',
-        'merk',
-        'harga',
+        'nama', 'jenis', 'type', 'plat_nomor', 'keterangan', 'tahun', 'seating_capacity', 'merk', 'harga'
     ];
+
+    public function fotos()
+    {
+        return $this->hasMany(KendaraanFoto::class);
+    }
 }

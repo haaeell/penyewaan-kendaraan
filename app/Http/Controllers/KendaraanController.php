@@ -25,7 +25,7 @@ class KendaraanController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'jenis' => 'required|in:mobil,motor',
             'type' => 'required|string|max:255',
             'plat_nomor' => 'required|unique:kendaraan',
@@ -62,7 +62,7 @@ class KendaraanController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'jenis' => 'required|in:mobil,motor',
             'type' => 'required|string|max:255',
             'plat_nomor' => 'required|unique:kendaraan,plat_nomor,' . $kendaraan->id,

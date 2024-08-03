@@ -10,20 +10,22 @@ use Illuminate\Http\Request;
 class LaporanController extends Controller
 {
     public function index(Request $request)
-    {
-        $bulan = $request->input('bulan', Carbon::now()->month);
-        $tahun = $request->input('tahun', Carbon::now()->year);
+{
+    $bulan = $request->input('bulan', Carbon::now()->month);
+    $tahun = $request->input('tahun', Carbon::now()->year);
 
-        $query = Sewa::where('status', 'selesai')
-                     ->whereYear('tanggal_mulai', $tahun)
-                     ->whereMonth('tanggal_mulai', $bulan);
+    $query = Sewa::where('status', 'selesai')
+                 ->whereYear('tanggal_mulai', $tahun)
+                 ->whereMonth('tanggal_mulai', $bulan);
 
-        $laporan = $query->get();
+    $laporan = $query->get();
 
-        $totalPendapatan = $query->sum('total_harga');
+    $totalPendapatan = $laporan->sum(function ($item) {
+        return $item->harga_setelah_diskon ?: $item->total_harga;
+    });
 
-        return view('admin.laporan.index', compact('laporan', 'bulan', 'tahun', 'totalPendapatan'));
-    }
+    return view('admin.laporan.index', compact('laporan', 'bulan', 'tahun', 'totalPendapatan'));
+}
 
     public function cetakPDF(Request $request)
     {

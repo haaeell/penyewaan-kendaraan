@@ -69,7 +69,13 @@
                                     <td>{{ $sewa->kendaraan->nama }}</td>
                                     <td>{{ $sewa->tanggal_mulai }}</td>
                                     <td>{{ $sewa->tanggal_selesai }}</td>
-                                    <td>Rp. {{ number_format($sewa->total_harga, 0, ',', '.') }}</td>
+                                    <td>
+                                        @if ($sewa->harga_setelah_diskon)
+                                            Rp {{ number_format($sewa->harga_setelah_diskon, 0, ',', '.') }}
+                                        @else
+                                            Rp {{ number_format($sewa->total_harga, 0, ',', '.') }}
+                                        @endif
+                                    </td>
                                     <td>{{ ucfirst($sewa->status) }}</td>
                                     <td>{{ $sewa->jenisPembayaran->nama }} - No Rek: {{ $sewa->jenisPembayaran->no_rek }}</td>
                                     <td>{{ ucfirst($sewa->metode_pickup) }}</td>
