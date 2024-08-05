@@ -31,8 +31,8 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $item->kode_sewa }}</td>
                                 <td>{{ $item->kendaraan->nama }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->tanggal_mulai)->translatedFormat('d F Y h:i') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->tanggal_selesai)->translatedFormat('d F Y h:i') }}</td>
+                                <td>{{ $item->tanggal_mulai}}</td>
+                                <td>{{ $item->tanggal_selesai}}</td>
                                 <td>
                                     @if ($item->harga_setelah_diskon)
                                         Rp {{ number_format($item->harga_setelah_diskon, 0, ',', '.') }}
@@ -60,6 +60,7 @@
                                 </td>
                                 <td>
                                     @if ($item->status == 'belum_dibayar')
+                                       <div class="d-flex gap-2">
                                         <form action="{{ route('sewa.uploadBukti', $item) }}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="mb-3">
@@ -67,6 +68,13 @@
                                             </div>
                                             <button type="submit" class="btn btn-primary">Upload Bukti Pembayaran</button>
                                         </form>
+                                        <form action="{{ route('sewa.updateStatus', $item->id) }}" method="POST" style="display:inline-block; margin-left: 5px;">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="hidden" name="status" value="tolak">
+                                            <button type="submit" class="btn btn-danger text-white btn-sm">Batalkan</button>
+                                        </form>
+                                       </div>
                                     @endif
 
                                     @if ($item->status == 'diterima')
@@ -85,9 +93,13 @@
                                                     <form action="{{ route('sewa.perpanjang', $item->id) }}" method="POST" enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="modal-body">
+                                                            <div class="alert alert-info" role="alert">
+                                                                <strong>Perhatian:</strong> 
+                                                                Untuk perpanjangan sewa, Anda harus melakukannya minimal 3 jam sebelum tanggal selesai sewa saat ini. Pastikan untuk memasukkan tanggal selesai baru dan upload bukti pembayaran tambahan.
+                                                            </div>
                                                             <div class="mb-3">
                                                                 <label for="tanggal_selesai_baru" class="form-label">Tanggal Selesai Baru</label>
-                                                                <input type="date" class="form-control" id="tanggal_selesai_baru" name="tanggal_selesai_baru" required>
+                                                                <input type="datetime-local" class="form-control" id="tanggal_selesai_baru" name="tanggal_selesai_baru" required>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="bukti_pembayaran_tambahan" class="form-label">Bukti Pembayaran Tambahan</label>
@@ -97,7 +109,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-info text-white">Perpanjang Sewa</button>
+                                                            <button type="submit" class="btn btn-info text-whitelan">Perpanjang Sewa</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -127,7 +139,7 @@
                 const hargaPerHari = {{ $item->kendaraan->harga }};
                 
                 if (tanggalSelesaiBaru > tanggalSelesaiAsli) {
-                    const durasiTambahan = Math.ceil((tanggalSelesaiBaru - tanggalSelesaiAsli) / (1000 * 60 * 60 * 24));
+                    const durasiTambahan = Math.floor((tanggalSelesaiBaru - tanggalSelesaiAsli) / (1000 * 60 * 60 * 24));
                     const totalHargaTambahan = durasiTambahan * hargaPerHari;
                     document.getElementById('harga_tambahan_{{ $item->id }}').innerText = 'Rp ' + totalHargaTambahan.toLocaleString('id-ID');
                 } else {

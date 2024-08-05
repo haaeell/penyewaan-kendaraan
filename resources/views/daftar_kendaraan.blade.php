@@ -41,7 +41,12 @@
                                 <h5 class="fs-6">{{ $kendaraan->nama }}</h5>
                                 <p class="small">Rp {{ number_format($kendaraan->harga, 0, ',', '.') }}/ Hari</p>
                                 <p class="small">{{ $kendaraan->tahun }}</p>
-                                <a href="{{ route('detailKendaraan', $kendaraan->id) }}" class="btn btn-primary text-white w-100 btn-sm">Lihat Detail</a>
+                                @if($kendaraan->is_rented['status'])
+                                    <p class="text-danger fw-bold">Tidak Tersedia</p>
+                                    <p class="small text-muted">Tersedia pada: <br> {{ $kendaraan->is_rented['available_at'] }}</p>
+                                @else
+                                    <a href="{{ route('detailKendaraan', $kendaraan->id) }}" class="btn btn-primary text-white w-100 btn-sm">Lihat Detail</a>
+                                @endif
                             </div>
                         </div>
                     </div>

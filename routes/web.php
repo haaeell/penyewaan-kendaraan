@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/pemesanan', [SewaController::class, 'index'])->name('sewa.index');
     Route::post('/sewa/upload-bukti/{sewa}', [SewaController::class, 'uploadBuktiPembayaran'])->name('sewa.uploadBukti');
     Route::get('/check-promo/{kode}', [PromoController::class, 'checkPromo']);
+    Route::patch('sewa/{id}/update-status', [SewaController::class, 'updateStatus'])->name('sewa.updateStatus');
 
 });
 
@@ -50,7 +51,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('wisatawan', WisatawanController::class);
     Route::resource('kendaraan', KendaraanController::class);
     Route::resource('jenis_pembayaran', JenisPembayaranController::class);
-    Route::patch('sewa/{id}/update-status', [SewaController::class, 'updateStatus'])->name('sewa.updateStatus');
+
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
     Route::get('/laporan/cetak-pdf', [LaporanController::class, 'cetakPDF'])->name('laporan.cetakPDF');
 

@@ -42,7 +42,7 @@
                         </div><!--//col-->
 
                         <div class="app-utilities col-auto">
-                            <div class="app-utility-item app-notifications-dropdown dropdown">
+                            {{-- <div class="app-utility-item app-notifications-dropdown dropdown">
                                 <a class="dropdown-toggle no-toggle-arrow" id="notifications-dropdown-toggle"
                                     data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"
                                     title="Notifications">
@@ -147,18 +147,14 @@
                                     </div>
 
                                 </div><!--//dropdown-menu-->
-                            </div><!--//app-utility-item-->
+                            </div><!--//app-utility-item--> --}}
 
                             <div class="app-utility-item app-user-dropdown dropdown">
                                 <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown"
                                     href="#" role="button" aria-expanded="false"><img
                                         src="{{ asset('assets') }}/images/user.png" alt="user profile"></a>
                                 <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
-                                    <li><a class="dropdown-item" href="account.html">Account</a></li>
-                                    <li><a class="dropdown-item" href="settings.html">Settings</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
+                                   
                                     <li>
                                         <form action="{{ route('logout') }}" method="POST">
                                             @csrf
@@ -195,7 +191,7 @@
                     <ul class="app-menu list-unstyled accordion" id="menu-accordion">
                         <li class="nav-item">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link active" href="index.html">
+                            <a class="nav-link active" href="/home">
                                 <span class="nav-icon">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">

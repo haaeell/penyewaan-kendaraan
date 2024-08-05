@@ -19,6 +19,14 @@
     .btn-primary{
         background-color: rgba(0,107,176,1) 100%;
     }
+
+    .modal {
+    z-index: 1050;
+}
+
+.modal-backdrop {
+    z-index: 1040;
+}
 </style>
 <body>
     @php
@@ -31,21 +39,21 @@ background: linear-gradient(21deg, rgba(0,157,217,1) 0%, rgba(0,107,176,1) 100%)
                 <div class="d-flex gap-2">
                     <div class="d-flex gap-1">
                         <i class="fa-solid fa-envelope"></i>
-                        <p class="mb-0" style="font-size: 12px">{{ $settingInformasi->email }}</p>
+                        <a href="mailto:{{ $settingInformasi->email }}" target="_blank" class="text-white text-decoration-none" style="font-size: 12px">{{ $settingInformasi->email }}</a>
                     </div>
                     <div class="d-flex gap-1">
                         <i class="fa-solid fa-phone"></i>
-                        <p class="mb-0" style="font-size: 12px">{{ $settingInformasi->no_telepon }}</p>
+                        <a href="https://wa.me/{{ $settingInformasi->no_telepon }}" target="_blank"  class="text-white text-decoration-none" style="font-size: 12px">{{ $settingInformasi->no_telepon }}</a>
                     </div>
                 </div>
+                
 
                 <span class="m-0">{{ $settingInformasi->alamat }}</span>
             </div>
         </div>
     </header>
-    <nav class="navbar container mt-4 navbar-expand-lg navbar-light bg-light shadow rounded-5" style="border:1px solid rgb(0, 110, 255)">
+    <nav class="navbar container mt-4 navbar-expand-lg navbar-light bg-light shadow rounded-5 sticky-top" style="border:1px solid rgb(0, 110, 255)">
         <div class="container">
-
             <img src="{{ asset('storage/' . $settingInformasi->logo) }}" width="50" alt="Logo">
             <a class="navbar-brand mx-2" href="#">{{ $settingInformasi->nama_perusahaan }}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -66,7 +74,6 @@ background: linear-gradient(21deg, rgba(0,157,217,1) 0%, rgba(0,107,176,1) 100%)
                     <li class="nav-item">
                         <a class="nav-link" href="/semua-wisata">Kontak</a>
                     </li>
-                 
                 </ul>
                 <ul class="navbar-nav">
                     @if (Route::has('login'))
@@ -80,8 +87,7 @@ background: linear-gradient(21deg, rgba(0,157,217,1) 0%, rgba(0,107,176,1) 100%)
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ route('sewa.riwayat') }}">Riwayat</a></li>
-                                <li><a class="dropdown-item" href="{{ route('wisatawan.profile.index') }}">Setting
-                                        Profile</a></li>
+                                <li><a class="dropdown-item" href="{{ route('wisatawan.profile.index') }}">Setting Profile</a></li>
                                 <li><a class="dropdown-item" href="{{ route('editPassword') }}">Update Password</a></li>
                                 <li>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -99,39 +105,6 @@ background: linear-gradient(21deg, rgba(0,157,217,1) 0%, rgba(0,107,176,1) 100%)
                             <a class="btn btn-primary rounded-5 px-4 mx-2 py-2" data-bs-toggle="modal"
                                 data-bs-target="#loginModal">Login</a>
                         </li>
-                        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="loginModalLabel">Login</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="POST" action="{{ route('login') }}">
-                                            @csrf
-                                            <div class="mb-3">
-                                                <label for="email" class="form-label">Email address</label>
-                                                <input type="email" class="form-control" id="email"
-                                                    name="email" required autofocus>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="password" class="form-label">Password</label>
-                                                <input type="password" class="form-control" id="password"
-                                                    name="password" required>
-                                            </div>
-                                            <div class="mb-3 form-check">
-                                                <input type="checkbox" class="form-check-input" id="remember"
-                                                    name="remember">
-                                                <label class="form-check-label" for="remember">Remember Me</label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Login</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         @if (Route::has('register'))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/register') }}">Register</a>
@@ -143,7 +116,36 @@ background: linear-gradient(21deg, rgba(0,157,217,1) 0%, rgba(0,107,176,1) 100%)
             </div>
         </div>
     </nav>
-
+    
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" name="email" required autofocus>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                            <label class="form-check-label" for="remember">Remember Me</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
     @yield('content')
 

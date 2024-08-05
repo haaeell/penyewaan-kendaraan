@@ -21,6 +21,7 @@
                                 <th>Jenis Pembayaran</th>
                                 <th>Metode Pickup</th>
                                 <th>Lokasi Pickup</th>
+                                <th>Bukti Pembayaran</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -64,6 +65,13 @@
                                                 $lokasi = str_replace('Lat: ', '', str_replace('Lng: ', '', $sewa->lokasi_pickup));
                                             @endphp
                                             <a href="https://www.google.com/maps/search/?api=1&query={{ $lokasi }}" target="_blank" class="btn btn-info btn-sm text-white">Lihat Lokasi</a>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($sewa->bukti_pembayaran)
+                                            <a href="{{ asset('storage/' . $sewa->bukti_pembayaran) }}" target="_blank" class="btn btn-info btn-sm text-white">Lihat Bukti Pembayaran</a>
                                         @else
                                             -
                                         @endif

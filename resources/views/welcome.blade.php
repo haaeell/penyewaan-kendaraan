@@ -64,9 +64,12 @@
             <h3 class="fw-bold text-center">
                 Tentang Kami
             </h3>
-            <div class="row my-5 d-flex  justify-content-center ">
-
-                <div class="col-md-6">
+            <div class="row my-5 justify-content-center ">
+                <div class="col-md-4 text-center mb-5">
+                    <img src="https://imgcdn.oto.com/large/gallery/exterior/73/2270/honda-beat-esp-slant-rear-view-full-image-226189.jpg"
+                        alt=""  class="rounded-circle shadow" style="width: 200px; height: 200px; object-fit:cover;">
+                </div>
+                <div class="col-md-12 text-center">
                     <h1 class="fw-bold text-dark">
                         Selamat Datang di Rental Motor Jogja
                     </h1>
@@ -80,10 +83,7 @@
                     {{-- <a href="" class="btn btn-outline-primary rounded-5 px-4 mt-4"> Lihat Detail <i
                             class="fas fa-arrow-right"></i></a> --}}
                 </div>
-                <div class="col-md-6">
-                    <img src="https://imgcdn.oto.com/large/gallery/exterior/73/2270/honda-beat-esp-slant-rear-view-full-image-226189.jpg"
-                        alt="" width="100%" class="rounded-3">
-                </div>
+               
             </div>
         </div>
     </section>
@@ -113,7 +113,7 @@
                                         <a href="{{ route('sewa.create', ['kendaraan_id' => $item->id]) }}"
                                             class="btn btn-outline-primary w-full d-block">Pesan Sekarang</a>
                                     @else
-                                        <a class="btn btn-warning text-white fw-semibold fs-6 btn-sm mt-3 py-2"
+                                        <a class="btn btn-outline-primary w-full d-block"
                                             data-bs-toggle="modal" data-bs-target="#loginModal">Pesan Sekarang</a>
                                     @endif
                                     <a href="{{ route('detailKendaraan', $item->id) }}"
@@ -256,7 +256,7 @@
                         </div>
                         <div class="col-md-6 ">
                             <div class="d-flex gap-3 align-items-center float-end">
-                                <a href="" class="btn btn-outline-light px-2 py-3">
+                                <a href="https://api.whatsapp.com/send?phone={{$settingInformasi->no_telepon}}&text=Halo%20admin,%20saya%20ingin%20menyewa%20kendaraan" target="_blank" class="btn btn-outline-light px-2 py-3">
                                     <span>
                                         <i class="fas fa-phone fa-2xl mx-3"></i>{{ $settingInformasi->no_telepon }}
                                     </span>

@@ -13,7 +13,7 @@ class SewaController extends Controller
 {
     public function index()
     {
-        $sewas = Sewa::with('wisatawan', 'kendaraan', 'jenisPembayaran')->get();
+        $sewas = Sewa::with('wisatawan', 'kendaraan', 'jenisPembayaran')->orderBy('created_at', 'desc')->get();
         return view('admin.sewa.index', compact('sewas'));
     }
 
@@ -37,7 +37,23 @@ class SewaController extends Controller
 
         $kendaraan = Kendaraan::findOrFail($request->kendaraan_id);
 
-        // Menghitung durasi dalam jam
+        // Check for existing bookings
+        $existingBookings = Sewa::where('kendaraan_id', $request->kendaraan_id)
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('tanggal_mulai', [$request->tanggal_mulai, $request->tanggal_selesai])
+                    ->orWhereBetween('tanggal_selesai', [$request->tanggal_mulai, $request->tanggal_selesai])
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where('tanggal_mulai', '<=', $request->tanggal_mulai)
+                            ->where('tanggal_selesai', '>=', $request->tanggal_selesai);
+                    });
+            })
+            ->exists();
+
+        if ($existingBookings) {
+            return redirect()->back()->withErrors(['kendaraan_id' => 'Kendaraan ini sudah disewa pada periode yang dipilih.'])->withInput();
+        }
+
+        // Calculate the duration in hours
         $tanggalMulai = \Carbon\Carbon::parse($request->tanggal_mulai);
         $tanggalSelesai = \Carbon\Carbon::parse($request->tanggal_selesai);
         $durasiJam = $tanggalMulai->diffInHours($tanggalSelesai);
@@ -79,9 +95,10 @@ class SewaController extends Controller
             'harga_setelah_diskon' => $totalHargaSetelahDiskon
         ]);
 
-        // Mengarahkan pengguna ke riwayat sewa dengan pesan sukses
+        // Redirect the user to the rental history with a success message
         return redirect()->route('sewa.riwayat')->with('success', 'Pemesanan berhasil dibuat.');
     }
+
 
     public function perpanjang(Request $request, $id)
     {
@@ -89,33 +106,36 @@ class SewaController extends Controller
             'tanggal_selesai_baru' => 'required|date|after_or_equal:tanggal_selesai',
             'bukti_pembayaran_tambahan' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
-    
+
         $sewa = Sewa::findOrFail($id);
-        $tanggalSelesaiAsli = new \DateTime($sewa->tanggal_selesai);
-        $tanggalSelesaiBaru = new \DateTime($request->tanggal_selesai_baru);
-    
-        $durasiTambahan = $tanggalSelesaiBaru->diff($tanggalSelesaiAsli)->days;
+        $tanggalSelesaiAsli = \Carbon\Carbon::parse($sewa->tanggal_selesai)->startOfDay();
+        $tanggalSelesaiBaru = \Carbon\Carbon::parse($request->tanggal_selesai_baru)->startOfDay();
+        
+
+
+        $durasiTambahan = $tanggalSelesaiAsli->diffInDays($tanggalSelesaiBaru);
         $hargaTambahan = $durasiTambahan * $sewa->kendaraan->harga;
-        $totalHargaBaru = $sewa->total_harga + $hargaTambahan; 
+        $totalHargaBaru = $sewa->total_harga + $hargaTambahan;
         $buktiPembayaran = $request->file('bukti_pembayaran_tambahan')->store('bukti_pembayaran');
-    
+
         $sewa->update([
             'tanggal_selesai' => $request->tanggal_selesai_baru,
-            'total_harga' => $totalHargaBaru, 
-            'harga_setelah_diskon' => $totalHargaBaru, 
+            'tanggal_selesai_baru' => $request->tanggal_selesai_baru,
+            'total_harga' => $totalHargaBaru,
+            'harga_setelah_diskon' => $totalHargaBaru,
             'harga_tambahan' => $hargaTambahan,
             'bukti_pembayaran_tambahan' => $buktiPembayaran,
-            'status' => 'perpanjangan sewa', 
+            'status' => 'perpanjangan sewa',
         ]);
-    
+
         return redirect()->route('sewa.riwayat')->with('success', 'Perpanjangan sewa berhasil.');
     }
-    
+
 
 
     public function riwayat()
     {
-        $sewa = Sewa::where('wisatawan_id', Auth::user()->wisatawan->id)->get();
+        $sewa = Sewa::where('wisatawan_id', Auth::user()->wisatawan->id)->orderBy('created_at', 'desc')->get();
         return view('riwayat', compact('sewa'));
     }
 
