@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JenisPembayaran;
+use App\Models\Karyawan;
 use App\Models\Kendaraan;
 use App\Models\Promo;
 use App\Models\Sewa;
@@ -14,7 +15,8 @@ class SewaController extends Controller
     public function index()
     {
         $sewas = Sewa::with('wisatawan', 'kendaraan', 'jenisPembayaran')->orderBy('created_at', 'desc')->get();
-        return view('admin.sewa.index', compact('sewas'));
+        $karyawans = Karyawan::all();
+        return view('admin.sewa.index', compact('sewas', 'karyawans'));
     }
 
     public function create($kendaraan_id)
@@ -168,6 +170,8 @@ class SewaController extends Controller
             $sewa->status = 'diterima';
         } elseif ($request->status == 'selesai') {
             $sewa->status = 'selesai';
+        }elseif ($request->status == 'perpanjangan') {
+            $sewa->status = 'perpanjangan sewa';
         } else {
             return redirect()->back()->with('error', 'Status tidak valid.');
         }
@@ -175,6 +179,20 @@ class SewaController extends Controller
         $sewa->save();
 
         return redirect()->back()->with('success', 'Status pemesanan berhasil diperbarui.');
+    }
+
+    public function assignKaryawan(Request $request, $id)
+    {
+        $request->validate([
+            'karyawan_id' => 'required|exists:karyawan,id',
+        ]);
+
+        $sewa = Sewa::findOrFail($id);
+        $sewa->karyawan_id = $request->input('karyawan_id');
+        $sewa->status = 'sedang_diproses';
+        $sewa->save();
+
+        return redirect()->back()->with('success', 'Karyawan berhasil ditugaskan');
     }
 
 

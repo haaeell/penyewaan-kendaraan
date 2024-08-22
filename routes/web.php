@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JenisPembayaranController;
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LaporanController;
@@ -65,4 +66,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin')->middleware('auth')->group(function () {
         Route::resource('promos', PromoController::class);
     });
+    Route::resource('karyawan', KaryawanController::class);
+    Route::post('sewa/assign-karyawan/{id}', [SewaController::class, 'assignKaryawan'])->name('sewa.assignKaryawan');
 });

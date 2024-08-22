@@ -44,4 +44,9 @@ class Sewa extends Model
     {
         return $this->belongsTo(JenisPembayaran::class);
     }
+
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawan::class);
+    }
 }

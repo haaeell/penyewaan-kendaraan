@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('kode_sewa')->unique();
             $table->enum('metode_pickup', ['diantar', 'ambil_sendiri']);
             $table->text('lokasi_pickup')->nullable();
-            $table->string('kode_promo')->nullable(); // Kolom untuk menyimpan kode promo yang digunakan
+            $table->string('kode_promo')->nullable(); 
             $table->timestamps();
         });
     }
