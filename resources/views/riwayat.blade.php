@@ -77,6 +77,12 @@
                                        </div>
                                     @endif
 
+                                    @if ($item->status == 'sedang_diproses')
+                                    <span class="text-dark fw-semibold">
+                                        Karyawan yang mengantar: {{ $item->karyawan->nama_karyawan ?? '' }} - No Hp: {{ $item->karyawan->no_telepon ?? '' }}
+                                    </span>
+                                    @endif
+
                                     @if ($item->status == 'diterima')
                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#extendRentalModal{{ $item->id }}">
                                             Perpanjang Sewa
