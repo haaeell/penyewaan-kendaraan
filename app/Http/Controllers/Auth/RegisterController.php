@@ -30,7 +30,7 @@ class RegisterController extends Controller
             'no_telepon' => ['required', 'string', 'max:15'],
             'alamat' => ['required', 'string', 'max:255'],
             'ktp' => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'npwp' => ['nullahle', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'npwp' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
             'sim' => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
         ]);
     }
