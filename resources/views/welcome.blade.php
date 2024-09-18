@@ -13,7 +13,7 @@
 </style>
     {{-- HERO SECTION --}}
     <section>
-        <div class="container bg-white my-5 rounded-4 p-4">
+        <div class="container bg-white  rounded-4 p-2 mt-3">
             <div id="carouselExampleCaptions" class="carousel slide">
                 <div class="carousel-indicators">
                     @foreach ($promo as $key => $item)
@@ -66,20 +66,17 @@
             </h3>
             <div class="row my-5 justify-content-center ">
                 <div class="col-md-4 text-center mb-5">
-                    <img src="https://imgcdn.oto.com/large/gallery/exterior/73/2270/honda-beat-esp-slant-rear-view-full-image-226189.jpg"
+                    <img src="{{ asset('assets/images/IMG-20240812-WA0023.jpg') }}"
                         alt=""  class="rounded-circle shadow" style="width: 200px; height: 200px; object-fit:cover;">
                 </div>
                 <div class="col-md-12 text-center">
                     <h1 class="fw-bold text-dark">
-                        Selamat Datang di Rental Motor Jogja
+                        Selamat Datang di Sewamotorjogja_24 Yogyakarta
                     </h1>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit, velit soluta, quibusdam illo, repellat
-                        ea alias sequi deserunt quia reiciendis quidem! Est culpa deleniti maxime optio nesciunt? Sunt modi
-                        necessitatibus velit culpa esse labore ipsum molestiae atque vitae debitis. Vel eaque, odit rem
-                        similique at quia magni accusantium nesciunt velit minima delectus in cum quibusdam. Delectus eos
-                        quo, magni maiores soluta perferendis voluptates quod facilis minus optio harum at minima? Placeat
-                        sit eius eum officiis quam, debitis, optio, ipsam sed fugit magnam aut hic nam esse? Sit maiores
-                        quasi adipisci suscipit earum a, dolorem qui repudiandae distinctio numquam beatae saepe.</p>
+                    <p>Penyewaan Sewamotorjogja_24 ini telah berdiri dari tahun 2015 di Kota Yogyakarta yang didirikan oleh Dicky Setiawan selaku 
+                        Owner dan pemilik penyewaan. Sewamotorjogja_24 ini menyediakan berbagai macam kendaraan mulai dari Motor dan Mobil dengan 
+                        berbagai macam Type dan Merk serta kendaraan yang di sewakan sudah free dengan Helm, Jas hujan, dan juga Free 
+                        Antar jemput Khusus di Kota Yogyakarta..</p>
                     {{-- <a href="" class="btn btn-outline-primary rounded-5 px-4 mt-4"> Lihat Detail <i
                             class="fas fa-arrow-right"></i></a> --}}
                 </div>
@@ -244,7 +241,7 @@
     @php
         $settingInformasi = App\Models\SettingInformasi::first();
     @endphp
-    <section id="hubungi-kami" class="container my-5">
+    <section id="kontak" class="container my-5">
         <div class="container bg-white rounded-4 p-4">
             <h2 class="text-center fw-bold mb-4">Hubungi Kami</h2>
             <div class="row">

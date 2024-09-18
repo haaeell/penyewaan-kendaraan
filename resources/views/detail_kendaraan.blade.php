@@ -12,9 +12,8 @@
                 <div>
                     <h3 class="fw-semibold">{{ $kendaraan->nama }}</h3>
                     <p class="m-0">Tahun {{ $kendaraan->tahun }} - Type {{ $kendaraan->type }}</p>
-                    <p class="mt-3 mb-0">{{ $kendaraan->keterangan }} Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit. Soluta nam facere facilis quo? Omnis ex nulla accusantium perspiciatis,
-                        qui explicabo.</p>
+                    <p class="mt-3 mb-0">{{ $kendaraan->keterangan }} Pengantaran Kendaraan Sangat Cepat dan Kendaraan Dalam Keadaan 
+                        Yang Sangat Bersih.</p>
                     <p class="mt-0 mb-2 text-secondary">Seating capacity : {{ $kendaraan->seating_capacity }}</p>
                     <span class="fw-bold fs-5 text-danger">Rp
                         {{ number_format($kendaraan->harga, 0, ',', '.') }}/Hari</span>

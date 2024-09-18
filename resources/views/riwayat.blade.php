@@ -22,6 +22,7 @@
                             <th>Total Harga</th>
                             <th>Jenis Pembayaran</th>
                             <th>Status</th>
+                            <th>Lokasi Sewa</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -58,6 +59,17 @@
                                         {{ ucfirst(str_replace('_', ' ', $item->status)) }}
                                     </span>
                                 </td>
+                                <td>
+    @if ($item->metode_pickup == 'ambil_sendiri')
+        <a href="https://www.google.com/maps?q=-7.786567157220733,110.40142819793935" target="_blank" class="btn btn-sm btn-info mt-2">
+            Lihat di Google Maps
+        </a>
+    @else
+        <span>Diantar</span>
+    @endif
+</td>
+
+
                                 <td>
                                     @if ($item->status == 'belum_dibayar')
                                        <div class="d-flex gap-2">
@@ -129,8 +141,8 @@
         </div>
     </div>
 </div>
-
 <script>
+    
     document.addEventListener('DOMContentLoaded', function() {
         @foreach ($sewa as $item)
             document.getElementById('tanggal_selesai_baru').addEventListener('change', function() {
@@ -148,6 +160,7 @@
             });
         @endforeach
     });
+
 </script>
 
 @endsection

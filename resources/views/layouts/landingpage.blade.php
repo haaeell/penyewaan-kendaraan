@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Penyewaan Kendaraan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -72,7 +72,7 @@ background: linear-gradient(21deg, rgba(0,157,217,1) 0%, rgba(0,107,176,1) 100%)
                         <a class="nav-link" href="{{ route('daftarKendaraan') }}">Daftar Mobil dan Motor</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/semua-wisata">Kontak</a>
+                        <a class="nav-link" href="#kontak">Kontak</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -198,7 +198,7 @@ background: linear-gradient(21deg, rgba(0,157,217,1) 0%, rgba(0,107,176,1) 100%)
         </div>
     </div> --}}
         <div class="text-center p-3 bg-dark text-white">
-            © 2024 Company Name. All rights reserved.
+            © Sewamotorjogja_24. All rights reserved.
         </div>
     </footer>
 

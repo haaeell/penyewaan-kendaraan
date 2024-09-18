@@ -1,7 +1,7 @@
 @extends('layouts.landingpage')
 
 @section('content')
-<div class="container my-5">
+<div class="container rounded-4 p-2 mt-3">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">

@@ -195,7 +195,7 @@
 
             function initializeMap() {
                 if (mapElement && !map) {
-                    map = L.map(mapElement).setView([-7.7956, 110.3695], 13);
+                    map = L.map(mapElement).setView([-7.786567157220733,110.40142819793935], 13);
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     }).addTo(map);
