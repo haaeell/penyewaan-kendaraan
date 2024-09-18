@@ -149,7 +149,6 @@
             }
         }
         
-        // Initial check
         toggleSeatingCapacity();
         
         // Add event listener
