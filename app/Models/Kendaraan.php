@@ -39,4 +39,9 @@ class Kendaraan extends Model
             'available_at' => null
         ];
     }
+
+    public function sewa()
+    {
+        return $this->hasMany(Sewa::class, 'kendaraan_id');
+    }
 }
